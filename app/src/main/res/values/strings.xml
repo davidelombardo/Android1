@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="one_button">1</string>
+    <string name="two_button">2</string>
+    <string name="three_button">3</string>
+    <string name="piu">+</string>
+    <string name="four_button">4</string>
+    <string name="five_button">5</string>
+    <string name="six_button">6</string>
+    <string name="meno">-</string>
+    <string name="seven_button">7</string>
+    <string name="eight_button">8</string>
+    <string name="nine_button">9</string>
+    <string name="per">*</string>
+    <string name="vuoto_button">canc</string>
+    <string name="zero_button">0</string>
+    <string name="uguale">=</string>
+    <string name="diviso">/</string>
+    <string name="testo">0</string>
+</resources>
