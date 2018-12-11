@@ -6,9 +6,9 @@
     android:padding="5dp">
 
     <EditText
+        android:id="@+id/email_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/email_et"
         android:inputType="textEmailAddress"
         android:hint="@string/email"/>
     <LinearLayout
@@ -16,43 +16,41 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:orientation="horizontal">
-    <EditText
-        android:id="@+id/password_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="@string/password"/>
+        <EditText
+            android:id="@+id/password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/password"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <Button
-            android:id="@+id/login_btn"
-            android:layout_width="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login"/>
-        <Button
-            android:id="@+id/register_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Register"/>
-     </LinearLayout>
+            android:inputType="phone"
+            android:hint="@string/phone_number"/>
+    </LinearLayout>
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="10dp"
         android:orientation="vertical"
-        android:gravity="right|bottom">
-        <Switch
-            android:layout_width="wrap_content"
+        android:gravity="center|bottom" >
+        <Button
+            android:onClick="onClick"
+            android:id="@+id/register_btn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/switch_id"
+            android:text="@string/Register"
             android:enabled="false"
+
             />
 
     </LinearLayout>
-
-
 </LinearLayout>
