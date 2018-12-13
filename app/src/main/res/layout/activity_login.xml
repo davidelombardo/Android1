@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="5dp"
+
+
+    >
 
     <EditText
         android:layout_width="match_parent"
@@ -49,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/switch_id"
-            android:enabled="false"
+
+
             />
 
     </LinearLayout>

@@ -94,8 +94,8 @@ public class RegisterActivity extends AppCompatActivity  implements OnClickListe
     }
 
     private void enableButton(){
-        if(emailValidate && passwordValidate  && phoneValidate)
-            registerBtn.setEnabled(true);
+        registerBtn.setEnabled((emailValidate && passwordValidate  && phoneValidate));
+
     }
 
 
