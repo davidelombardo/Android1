@@ -1,7 +1,7 @@
 package com.example.david.myapplication;
 
 import android.content.Intent;
-//import android.os.Parcelable;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -128,12 +128,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked){
-        switchSt.getRootView().setBackgroundColor(getResources().getColor(R.color.dark
-        ));
+        switchSt.getRootView().setBackgroundColor(getResources().getColor(R.color.dark));
         }else{
             switchSt.getRootView().setBackgroundColor(getResources().getColor(R.color.white));
-
-
 
         }
     }

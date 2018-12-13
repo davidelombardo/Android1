@@ -1,5 +1,7 @@
 package com.example.david.myapplication;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -24,6 +26,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
 
     @Override
     public void onClick(View view) {
-
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setData(Uri.parse("mailto:"));
+        String mail =getIntent().getStringExtra("Welcome");
+        String[] to = {mail,""};
+        intent.putExtra(Intent.EXTRA_EMAIL, to);
+        intent.setType("message/rfc822");
+        Intent chooser = Intent.createChooser(intent, "Send email");
+        startActivity(chooser);
     }
 }
+
+
+
+
+

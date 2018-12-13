@@ -15,7 +15,9 @@
             android:layout_height="wrap_content"
             android:text="@string/welcome"
             android:textSize="30sp"
-            android:id="@+id/welcome_tv"/>
+            android:id="@+id/welcome_tv"
+            android:onClick="onClick"/>
+
     </LinearLayout>
 
 </LinearLayout>
