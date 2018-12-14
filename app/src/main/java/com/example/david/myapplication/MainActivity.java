@@ -1,7 +1,9 @@
 package com.example.david.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     Button loginBtn;
     Button registerBtn;
     Switch switchSt;
+    SharedPreferences shared;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         loginBtn.setOnClickListener(this);
         switchSt = findViewById(R.id.switch_id);
         switchSt.setOnCheckedChangeListener(this);
+        shared= getPreferences(Context.MODE_PRIVATE);
+        editor= shared.edit();
+        switchSt.setChecked(getColorValue());
         Log.i(TAG, "activity created");
     }
 
@@ -124,9 +131,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
 
 
     }
+    private void setColorValue(boolean value){
+        editor.putBoolean("BGcolor", value);
+        editor.commit();
+    }
+    private boolean getColorValue(){
+        return shared.getBoolean("BGcolor", false);
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+       setColorValue(isChecked);
         if(isChecked){
         switchSt.getRootView().setBackgroundColor(getResources().getColor(R.color.dark));
         }else{
