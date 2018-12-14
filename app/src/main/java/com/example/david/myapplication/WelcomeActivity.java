@@ -1,15 +1,18 @@
 package com.example.david.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity implements OnClickListener {
-
+    Button addMilkBtn, minMilkBtn;
+    @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +20,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         TextView welcomeTW = findViewById(R.id.welcome_tv);
         String mail =getIntent().getStringExtra("Welcome");
         welcomeTW.setText(getString(R.string.welcome)+" "+ mail);
+        addMilkBtn =findViewById(R.id.milk).findViewById(R.id.add_btn);
+        minMilkBtn =findViewById(R.id.milk).findViewById(R.id.min_btn);
     }
 
     @Override
@@ -30,6 +35,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         Intent chooser = Intent.createChooser(intent, "Send email");
         startActivity(chooser);
     }
+
+
 }
 
 
