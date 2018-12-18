@@ -28,8 +28,16 @@ public class Food extends WelcomeActivity {
     public int getProductQty() {
         return productQty;
     }
+    public void decreaseProductQty() {
+        if(productQty == 0) return;
+        this.productQty--;
+    }
+    public void increaseProductQty() {
+        this.productQty++;
+    }
 
-    public void setProductQty(int productQty) {
+    public void setProductQty(int productQty)
+    {
         this.productQty = productQty;
     }
 }

@@ -9,15 +9,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class WelcomeActivity extends AppCompatActivity implements OnClickListener {
+public class WelcomeActivity extends AppCompatActivity implements OnClickListener, FoodListAdapter.OnQuantityChange {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     FoodListAdapter adapter;
+    TextView totalTextView;
+    int total =0;
+    ProgressBar progressBar;
+    int progress =0;
+    Button buy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,22 +34,28 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         String mail =getIntent().getStringExtra("Welcome");
         welcomeTW.setText(getString(R.string.welcome)+" "+ mail);
         recyclerView= findViewById(R.id.food_rv);
+        totalTextView =findViewById(R.id.total);
         layoutManager= new LinearLayoutManager(this);
-        ArrayList<Food> foodList = new ArrayList<>();
+        adapter = new FoodListAdapter(this, getProducts());
+        adapter.setOnQuantityChange(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        adapter = new FoodListAdapter(this, foodList);
+        progressBar= findViewById(R.id.progress_bar);
+        buy = findViewById(R.id.buy);
+
+
+
+
     }
    private ArrayList<Food> getProducts() {
        ArrayList<Food> foodList = new ArrayList<>();
        foodList.add(new Food("Cannolo", 2.00f));
        foodList.add(new Food("Arancina", 1.00f));
        foodList.add(new Food("Cassata", 3.00f));
-       foodList.add(new Food("Sfingi", 0.50f));
+       foodList.add(new Food("Sfingi", 1.00f));
        return foodList;
-
-
    }
+
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -53,6 +66,30 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         intent.setType("message/rfc822");
         Intent chooser = Intent.createChooser(intent, "Send email");
         startActivity(chooser);
+
+
+
+    }
+
+    @Override
+    public void onItemAdd(float productPrice) {
+        total += productPrice;
+        totalTextView.setText("Total :"+ total);
+        progressBar.setProgress(total);
+        if(total>=5){
+            buy.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void onItemRemove(float productPrice) {
+        if(total == 0) return;
+        total -= productPrice;
+        totalTextView.setText("Total :" + total);
+        progressBar.setProgress(total);
+        if(total<5) {
+            buy.setEnabled(false);
+        }
     }
 }
 
