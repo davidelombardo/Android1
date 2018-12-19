@@ -49,7 +49,6 @@ public class FoodListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-
         return data.size();
     }
     private void addItem(){
@@ -95,5 +94,7 @@ public class FoodListAdapter extends RecyclerView.Adapter {
         }
         }
     }
-
+        public FoodListAdapter(Context context){
+        mInFlater=LayoutInflater.from(context);
+        }
 }

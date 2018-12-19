@@ -1,19 +1,28 @@
 package com.example.david.myapplication;
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.ArrayList;
+
 
 public class WelcomeActivity extends AppCompatActivity implements OnClickListener, FoodListAdapter.OnQuantityChange {
 
@@ -25,6 +34,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
     ProgressBar progressBar;
     int progress =0;
     Button buy;
+    ArrayList<Food> food1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +46,43 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         recyclerView= findViewById(R.id.food_rv);
         totalTextView =findViewById(R.id.total);
         layoutManager= new LinearLayoutManager(this);
-        adapter = new FoodListAdapter(this, getProducts());
-        adapter.setOnQuantityChange(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        getProducts();
         progressBar= findViewById(R.id.progress_bar);
         buy = findViewById(R.id.buy);
 
-
-
-
     }
-   private ArrayList<Food> getProducts() {
-       ArrayList<Food> foodList = new ArrayList<>();
-       foodList.add(new Food("Cannolo", 2.00f));
-       foodList.add(new Food("Arancina", 1.00f));
-       foodList.add(new Food("Cassata", 3.00f));
-       foodList.add(new Food("Sfingi", 1.00f));
-       return foodList;
+   private void getProducts() {
+       RequestQueue queue = Volley.newRequestQueue(this);
+       String url = "https://5ba19290ee710f0014dd764c.mockapi.io/Food#";
+       StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+               new Response.Listener<String>() {
+                   @Override
+                   public void onResponse(String response) {
+                       Log.d("HTTP", response);
+                       try{
+                           JSONObject responseJSON = new JSONObject(response);
+                           JSONArray jsonArray = responseJSON.getJSONArray("food");
+                           for(int i=0; i<jsonArray.length(); i++){
+                               Food food = new Food(jsonArray.getJSONObject(i));
+                               food1.add(food);
+                               }
+                               setFoodView();
+                       }catch (JSONException e){
+                           e.printStackTrace();
+                       }
+                       // Display the first 500 characters of the response string.
+                   }
+               },
+               new Response.ErrorListener() {
+                   @Override
+                   public void onErrorResponse(VolleyError error) {
+                       Log.d("error", error.getMessage());
+
+                   }
+               });
+
+       // Add the request to the RequestQueue.
+       queue.add(stringRequest);
    }
 
     @Override
@@ -66,9 +95,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         intent.setType("message/rfc822");
         Intent chooser = Intent.createChooser(intent, "Send email");
         startActivity(chooser);
-
-
-
     }
 
     @Override
@@ -90,6 +116,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnClickListene
         if(total<5) {
             buy.setEnabled(false);
         }
+    }
+
+    private void setFoodView(){
+        adapter = new FoodListAdapter(this, food1);
+        adapter.setOnQuantityChange(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 }
 

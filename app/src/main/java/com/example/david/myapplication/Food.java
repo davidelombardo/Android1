@@ -1,5 +1,7 @@
 package com.example.david.myapplication;
 
+import org.json.JSONObject;
+
 public class Food extends WelcomeActivity {
     private String productName;
     private float productPrice;
@@ -39,5 +41,8 @@ public class Food extends WelcomeActivity {
     public void setProductQty(int productQty)
     {
         this.productQty = productQty;
+    }
+    public Food(JSONObject jsonObject){
+
     }
 }
